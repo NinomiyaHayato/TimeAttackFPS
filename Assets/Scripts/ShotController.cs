@@ -5,14 +5,14 @@ using UnityEngine.UI;
 
 public class ShotController : MonoBehaviour
 {
-    [SerializeField] Image _crosshair;
-    [SerializeField] float _range = 10;
-    [SerializeField] Transform _shotPosition;
-    [SerializeField] LayerMask _layerMask;
-    [SerializeField] Color _defaultColor = Color.green;
-    [SerializeField] Color _hitColor = Color.red;
+    [SerializeField] Image _crosshair;　//照準
+    [SerializeField] float _range = 10;　//距離の調整
+    [SerializeField] Transform _shotPosition;　//どこからrayを飛ばすか
+    [SerializeField] LayerMask _layerMask;　
+    [SerializeField] Color _defaultColor = Color.green; //rayに何も入っていないときの照準の色
+    [SerializeField] Color _hitColor = Color.red;　//rayに入っているとき
     [SerializeField] LineRenderer _line;
-    GameManager _enemyCount;
+    GameManager _enemyCount;　//倒した敵のカウント
     //AnimationGizmo _animtrigger;
     // Start is called before the first frame update
     void Start()
@@ -47,6 +47,10 @@ public class ShotController : MonoBehaviour
                 if(_hitCollider.gameObject.tag == "Enemy")
                 {
                     _enemyCount.EnemyCount(1);
+                }
+                else if(_hitCollider.gameObject.tag == "NotEnemy")
+                {
+                    _enemyCount.GameOver();
                 }
             }
         }

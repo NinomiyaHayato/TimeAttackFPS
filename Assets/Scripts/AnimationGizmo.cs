@@ -5,8 +5,8 @@ using UnityEngine;
 public class AnimationGizmo : MonoBehaviour
 {
     // Start is called before the first frame update
-    [SerializeField] float _gizmosize = 0.3f;
-    [SerializeField] Color _gizmocolor = Color.yellow;
+    [SerializeField] float _gizmosize = 0.3f;　//gizmoのサイズ
+    [SerializeField] Color _gizmocolor = Color.yellow;　//gizmoのカラー
     Animator _anim;
     private void Start()
     {

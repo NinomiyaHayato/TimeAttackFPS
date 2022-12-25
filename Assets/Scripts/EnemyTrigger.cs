@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class EnemyTrigger : MonoBehaviour
 {
-    [SerializeField] GameObject[] _enemy;
-    bool _enemyChange = true;
+    [SerializeField] GameObject[] _enemy;@//Enemy‚ğ“ü‚ê‚é
+    bool _enemyChange = true;@//animation‚Ì‰ñ”‚ğˆê‰ñ‚É§ŒÀ
     // Start is called before the first frame update
     void Start()
     {

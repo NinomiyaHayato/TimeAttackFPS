@@ -4,10 +4,10 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    [SerializeField] float _moveSpeed;
-    [SerializeField] float _jumpPower;
+    [SerializeField] float _moveSpeed; //playerの動く速さ
+    [SerializeField] float _jumpPower;　//playerのジャンプ力
     Rigidbody _rb;
-    bool _canjump = true;
+    bool _canjump = true;　//playerの設置判定
     [SerializeField] Transform _rightTtarget;
     [SerializeField] Transform _leftTarget;
     [SerializeField, Range(0f, 1f)] float _rightHandPosition;
