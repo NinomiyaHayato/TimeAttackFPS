@@ -47,6 +47,10 @@ public class GameManager : MonoBehaviour
         _panel.SetActive(true);
         _startBool._gameStart = false;
         Destroy(GameObject.Find("Player"));
+        if(Cursor.visible == false)
+        {
+            Cursor.visible = true;
+        }
     }
     void Begin()
     {
@@ -56,6 +60,7 @@ public class GameManager : MonoBehaviour
         {
             EnemyBord._bordTrigger = false;
         }
+        Cursor.visible = false;
     }
     public void SceneMoveFade(string scenename)
     {

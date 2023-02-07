@@ -6,6 +6,8 @@ public class EnemyTrigger : MonoBehaviour
 {
     [SerializeField] GameObject[] _enemy;　//Enemyを入れる
     bool _enemyChange = true;　//animationの回数を一回に制限
+    [SerializeField] bool _parentBool = false; //子オブジェクトになるかお試し
+    [SerializeField] GameObject[] _movebord; //子オブジェクトになるかお試し
     // Start is called before the first frame update
     void Start()
     {
@@ -35,6 +37,27 @@ public class EnemyTrigger : MonoBehaviour
                 if(_enemy.Length - 1 == i)
                 {
                     _enemyChange = false;
+                }
+            }
+            if(_parentBool)
+            {
+                for(int i = 0; i < _enemy.Length; i++)
+                {
+                    float _max = float.MaxValue;
+                    Transform tmp = default;
+                    for (int j = 0; j < _movebord.Length; j++)
+                    {
+                        float distance = Vector3.Distance(_enemy[i].transform.position, _movebord[j].transform.position);
+                        if(distance < _max)
+                        {
+                            _max = distance;
+                           tmp = _movebord[j].transform;
+                        }
+                        if (j == _movebord.Length - 1)
+                        {
+                            _enemy[i].transform.SetParent(tmp);
+                        }
+                    }
                 }
             }
         }

@@ -26,6 +26,12 @@ public class AnimationGizmo : MonoBehaviour
         else if(judgement == false)
         {
             _anim.SetTrigger("Down");
+            GameObject _tmp = this.transform.parent.gameObject;
+            if (_tmp != null)
+            {
+                EnemyBord speed = gameObject.GetComponentInParent<EnemyBord>();
+                speed._movespeed = 0;
+            }
         }
     }
 }
