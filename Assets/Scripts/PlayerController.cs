@@ -9,30 +9,46 @@ public class PlayerController : MonoBehaviour
     Rigidbody _rb;
     [SerializeField]bool _canjump = true;　//playerの設置判定
     public bool _gameStart = false;
-    [SerializeField] GameObject _arms;
+    [SerializeField] GameObject _arms;　//腕のGameobject
     Animator _anim;
+    ParticleSystem _pars;// 射撃のパーティクル
+    int count = 0;
+    float _time; //ジャンプ後の計測
+    [SerializeField] float _rimitTime;//次のジャンプまでのrimit
     // Start is called before the first frame update
     void Start()
     {
         _rb = GetComponent<Rigidbody>();
         _anim = GetComponentInChildren<Animator>();
+        _pars = GetComponentInChildren<ParticleSystem>();
     }
 
     // Update is called once per frame
     void Update()
     {
         float y = _rb.velocity.y;
-        if(_canjump)
+        if(count == 0) //ジャンプ
         {
             if (Input.GetKeyDown(KeyCode.Space))
             {
                 y = _jumpPower;
                 _rb.velocity = Vector3.up * _jumpPower;
+                count++;
+            }
+        }
+        if(count != 0) //ジャンプ回数の制限
+        {
+            _time += Time.deltaTime;
+            if(_time > _rimitTime)
+            {
+                count = 0;
+                _time = 0;
             }
         }
         if(Input.GetButtonDown("Fire1")) //射撃のanimation
         {
             _anim.SetTrigger("Shot");
+            _pars.Play();
         }
     }
     private void FixedUpdate()
@@ -52,15 +68,10 @@ public class PlayerController : MonoBehaviour
     }
     private void OnTriggerEnter(Collider other)
     {
-        _canjump = true;
         if(other.gameObject.tag == "GameStart")
         {
             _gameStart = true;
             Debug.Log("Trueになりました");
         }
-    }
-    private void OnTriggerExit(Collider other)
-    {
-        _canjump = false;
     }
 }

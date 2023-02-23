@@ -54,7 +54,7 @@ public class GameManager : MonoBehaviour
     }
     void Begin()
     {
-        _allEnemyCount = GameObject.FindGameObjectsWithTag("Enemy").Length;
+        _allEnemyCount = GameObject.FindGameObjectsWithTag("Enemy").Length / 2;
         _allEnemyText.text = _allEnemyCount.ToString("00");
         if(EnemyBord._bordTrigger != false)
         {
