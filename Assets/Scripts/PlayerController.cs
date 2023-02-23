@@ -7,30 +7,32 @@ public class PlayerController : MonoBehaviour
     [SerializeField] float _moveSpeed; //playerの動く速さ
     [SerializeField] float _jumpPower;　//playerのジャンプ力
     Rigidbody _rb;
-    bool _canjump = true;　//playerの設置判定
-    [SerializeField] Transform _rightTtarget;
-    [SerializeField] Transform _leftTarget;
-    [SerializeField, Range(0f, 1f)] float _rightHandPosition;
-    [SerializeField, Range(0f, 1f)] float _rightHandRotation;
-    [SerializeField, Range(0f, 1f)] float _leftHandPosition;
-    [SerializeField, Range(0f, 1f)] float _leftHandRotation;
-    Animator _anim;
+    [SerializeField]bool _canjump = true;　//playerの設置判定
     public bool _gameStart = false;
+    [SerializeField] GameObject _arms;
+    Animator _anim;
     // Start is called before the first frame update
     void Start()
     {
         _rb = GetComponent<Rigidbody>();
-        _anim = GetComponent<Animator>();
+        _anim = GetComponentInChildren<Animator>();
     }
 
     // Update is called once per frame
     void Update()
     {
         float y = _rb.velocity.y;
-        if(Input.GetKeyDown(KeyCode.Space))
+        if(_canjump)
         {
-            y = _jumpPower;
-            _rb.velocity = Vector3.up * _jumpPower;
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                y = _jumpPower;
+                _rb.velocity = Vector3.up * _jumpPower;
+            }
+        }
+        if(Input.GetButtonDown("Fire1")) //射撃のanimation
+        {
+            _anim.SetTrigger("Shot");
         }
     }
     private void FixedUpdate()
@@ -45,6 +47,8 @@ public class PlayerController : MonoBehaviour
         // 移動の入力がない時は回転させない。入力がある時はその方向にキャラクターを向ける。
         if (dir != Vector3.zero) this.transform.forward = dir;
         _rb.velocity = dir.normalized * _moveSpeed + _rb.velocity.y * Vector3.up;
+        this.transform.forward = Camera.main.transform.forward;
+        _arms.transform.forward = Camera.main.transform.forward;
     }
     private void OnTriggerEnter(Collider other)
     {
@@ -58,15 +62,5 @@ public class PlayerController : MonoBehaviour
     private void OnTriggerExit(Collider other)
     {
         _canjump = false;
-    }
-    private void OnAnimatorIK(int layerIndex)
-    {
-        _anim.SetIKPositionWeight(AvatarIKGoal.RightHand, _rightHandPosition);
-        _anim.SetIKPositionWeight(AvatarIKGoal.RightHand, _rightHandRotation);
-        _anim.SetIKPosition(AvatarIKGoal.RightHand, _rightTtarget.position);
-
-        _anim.SetIKPositionWeight(AvatarIKGoal.LeftHand, _leftHandPosition);
-        _anim.SetIKPositionWeight(AvatarIKGoal.LeftHand, _leftHandRotation);
-        _anim.SetIKPosition(AvatarIKGoal.LeftHand, _leftTarget.position);
     }
 }
