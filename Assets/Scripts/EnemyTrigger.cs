@@ -6,12 +6,14 @@ public class EnemyTrigger : MonoBehaviour
 {
     [SerializeField] GameObject[] _enemy;　//Enemyを入れる
     bool _enemyChange = true;　//animationの回数を一回に制限
-    [SerializeField] bool _parentBool = false; //子オブジェクトになるかお試し
-    [SerializeField] GameObject[] _movebord; //子オブジェクトになるかお試し
+    [SerializeField] bool _parentBool = false; //動く敵なのかどうか判定
+    [SerializeField] GameObject[] _movebord; //動く床を入れるための配列
+    AudioSource _audio;
+    [SerializeField] AudioClip _audioClip;
     // Start is called before the first frame update
     void Start()
     {
-        
+        _audio = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -60,6 +62,7 @@ public class EnemyTrigger : MonoBehaviour
                     }
                 }
             }
+            _audio.PlayOneShot(_audioClip);
         }
     }
 }

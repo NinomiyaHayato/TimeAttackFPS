@@ -15,12 +15,15 @@ public class PlayerController : MonoBehaviour
     int count = 0;
     float _time; //ジャンプ後の計測
     [SerializeField] float _rimitTime;//次のジャンプまでのrimit
+    AudioSource _audio;
+    [SerializeField]AudioClip[] _audioClip;
     // Start is called before the first frame update
     void Start()
     {
         _rb = GetComponent<Rigidbody>();
         _anim = GetComponentInChildren<Animator>();
         _pars = GetComponentInChildren<ParticleSystem>();
+        _audio = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -49,6 +52,7 @@ public class PlayerController : MonoBehaviour
         {
             _anim.SetTrigger("Shot");
             _pars.Play();
+            _audio.PlayOneShot(_audioClip[1]);
         }
     }
     private void FixedUpdate()
@@ -60,8 +64,10 @@ public class PlayerController : MonoBehaviour
         dir = Camera.main.transform.TransformDirection(dir);
         // カメラは斜め下に向いているので、Y 軸の値を 0 にして「XZ 平面上のベクトル」にする
         dir.y = 0;
-        // 移動の入力がない時は回転させない。入力がある時はその方向にキャラクターを向ける。
-        if (dir != Vector3.zero) this.transform.forward = dir;
+        if (dir != Vector3.zero)
+        {
+            this.transform.forward = dir;
+        }
         _rb.velocity = dir.normalized * _moveSpeed + _rb.velocity.y * Vector3.up;
         this.transform.forward = Camera.main.transform.forward;
         _arms.transform.forward = Camera.main.transform.forward;
@@ -71,7 +77,7 @@ public class PlayerController : MonoBehaviour
         if(other.gameObject.tag == "GameStart")
         {
             _gameStart = true;
-            Debug.Log("Trueになりました");
+            _audio.PlayOneShot(_audioClip[0]);
         }
     }
 }

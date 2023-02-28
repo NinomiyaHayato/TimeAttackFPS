@@ -27,7 +27,7 @@ public class AnimationGizmo : MonoBehaviour
         {
             _anim.SetTrigger("Down");
             GameObject _tmp = this.transform.parent.gameObject;
-            if (_tmp != null)
+            if (this.transform.parent.gameObject.name == "EnemyBord")
             {
                 EnemyBord speed = gameObject.GetComponentInParent<EnemyBord>();
                 speed._movespeed = 0;

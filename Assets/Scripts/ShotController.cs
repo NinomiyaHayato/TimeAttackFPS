@@ -47,6 +47,7 @@ public class ShotController : MonoBehaviour
                 if(_hitCollider.gameObject.tag == "Enemy")
                 {
                     _enemyCount.EnemyCount(1);
+                    _hit.collider.gameObject.tag = "DeadEnemy";
                 }
                 else if(_hitCollider.gameObject.tag == "NotEnemy")
                 {
