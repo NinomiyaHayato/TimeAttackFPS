@@ -61,6 +61,7 @@ public class GameManager : MonoBehaviour
         _panel.SetActive(true);
         _startBool._gameStart = false;
         Destroy(GameObject.Find("Player"));
+        Music(0);
         if(Cursor.visible == false)
         {
             Cursor.visible = true;
@@ -82,7 +83,7 @@ public class GameManager : MonoBehaviour
     }
     public void SceneMove(string name)
     {
-        SceneManager.LoadScene(name);
+        this._backGround.DOFade(0f, 1.5f).SetDelay(0.5f).OnComplete(()=> SceneManager.LoadScene(name));
     }
     void CheckInstance()
     {
@@ -94,5 +95,9 @@ public class GameManager : MonoBehaviour
         {
             Destroy(this.gameObject);
         }
+    }
+    public void Music(int num)
+    {
+        _audio.PlayOneShot(_audioClip[num]);
     }
 }

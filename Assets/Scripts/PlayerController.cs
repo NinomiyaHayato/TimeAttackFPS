@@ -24,6 +24,8 @@ public class PlayerController : MonoBehaviour
         _anim = GetComponentInChildren<Animator>();
         _pars = GetComponentInChildren<ParticleSystem>();
         _audio = GetComponent<AudioSource>();
+        _anim.Play("Rig|Rig|Rig|MK_ReloadFull");
+        _audio.PlayOneShot(_audioClip[2]);
     }
 
     // Update is called once per frame
