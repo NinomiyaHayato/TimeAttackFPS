@@ -25,7 +25,7 @@ public class PlayerController : MonoBehaviour
         _pars = GetComponentInChildren<ParticleSystem>();
         _audio = GetComponent<AudioSource>();
         _anim.Play("Rig|Rig|Rig|MK_ReloadFull");
-        _audio.PlayOneShot(_audioClip[2]);
+        _audio.PlayOneShot(_audioClip[2],10f);
     }
 
     // Update is called once per frame
@@ -54,7 +54,7 @@ public class PlayerController : MonoBehaviour
         {
             _anim.SetTrigger("Shot");
             _pars.Play();
-            _audio.PlayOneShot(_audioClip[1]);
+            _audio.PlayOneShot(_audioClip[1],10f);
         }
     }
     private void FixedUpdate()
@@ -74,12 +74,12 @@ public class PlayerController : MonoBehaviour
         this.transform.forward = Camera.main.transform.forward;
         _arms.transform.forward = Camera.main.transform.forward;
     }
-    private void OnTriggerEnter(Collider other)
+    private void OnTriggerEnter(Collider other) //ゲームを始めるためのtrigger
     {
         if(other.gameObject.tag == "GameStart")
         {
             _gameStart = true;
-            _audio.PlayOneShot(_audioClip[0]);
+            _audio.PlayOneShot(_audioClip[0],15f);
         }
     }
 }

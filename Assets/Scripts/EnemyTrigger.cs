@@ -23,7 +23,7 @@ public class EnemyTrigger : MonoBehaviour
     }
     private void OnTriggerEnter(Collider other)
     {
-        if(other.gameObject.tag == "Player" && _enemyChange == true)
+        if(other.gameObject.tag == "Player" && _enemyChange)　//敵の位置をランダムに入れ替える
         {
             for(int i = 0; i < _enemy.Length; i++)
             {
@@ -41,7 +41,7 @@ public class EnemyTrigger : MonoBehaviour
                     _enemyChange = false;
                 }
             }
-            if(_parentBool)
+            if(_parentBool)　//入れ替え後一番近くの動く床の子オブジェクトになる
             {
                 for(int i = 0; i < _enemy.Length; i++)
                 {
@@ -62,7 +62,7 @@ public class EnemyTrigger : MonoBehaviour
                     }
                 }
             }
-            _audio.PlayOneShot(_audioClip);
+            _audio.PlayOneShot(_audioClip,10f);
         }
     }
 }

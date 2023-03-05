@@ -5,7 +5,7 @@ using UnityEngine;
 public class ActionAnimation : MonoBehaviour
 {
     Animator _anim;
-    [SerializeField] bool _action = true;
+    [SerializeField] bool _action = true;　//animatiionの回数制限
     AudioSource _audio;
     [SerializeField] AudioClip _audioClip;
     // Start is called before the first frame update
@@ -20,14 +20,14 @@ public class ActionAnimation : MonoBehaviour
     {
         
     }
-    private void OnTriggerEnter(Collider other)
+    private void OnTriggerEnter(Collider other)　//ドアを開けるanimation実行
     {
-        if(_action == true && other.gameObject.tag == "Player")
+        if(_action && other.gameObject.tag == "Player")
         {
             _anim.SetTrigger("DoorLeft");
             _anim.SetTrigger("DoorRight");
             _action = false;
-            _audio.PlayOneShot(_audioClip);
+            _audio.PlayOneShot(_audioClip,10f);
         }
     }
 }

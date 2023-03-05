@@ -41,7 +41,7 @@ public class GameManager : MonoBehaviour
             _time += Time.deltaTime;
             _timeText.text = $"Time : {_time.ToString("00.00")}s" ;
         }
-        if(_killEnemyCount == _allEnemyCount && _startBool._gameStart == true)
+        if(_killEnemyCount == _allEnemyCount && _startBool._gameStart)
         {
             _startBool._gameStart = false;
             _nowTime = _time;
@@ -49,14 +49,15 @@ public class GameManager : MonoBehaviour
         }
         if(Input.GetKeyDown(KeyCode.R))
         {
-            SceneMove("GameScene");
+            SceneMoveFade("GameScene");
+            Music(1);
         }
     }
-    public void EnemyCount(int enemycount)
+    public void EnemyCount(int enemycount)//敵を倒した数をカウントする
     {
         _killEnemyCount += enemycount;
     }
-    public void GameOver()
+    public void GameOver() //ゲームオーバーの処理
     {
         _panel.SetActive(true);
         _startBool._gameStart = false;
@@ -67,7 +68,7 @@ public class GameManager : MonoBehaviour
             Cursor.visible = true;
         }
     }
-    void Begin()
+    void Begin()//シーンが読み込まれて最初にやりたい処理
     {
         _allEnemyCount = GameObject.FindGameObjectsWithTag("Enemy").Length / 2;
         _allEnemyText.text = _allEnemyCount.ToString("00");
@@ -77,15 +78,11 @@ public class GameManager : MonoBehaviour
         }
         Cursor.visible = false;
     }
-    public void SceneMoveFade(string scenename)
+    public void SceneMoveFade(string scenename)//シーンの読み込み
     {
         this._backGround.DOFade(2f, 2f).SetDelay(0.7f).OnComplete(() => SceneManager.LoadScene(scenename));
     }
-    public void SceneMove(string name)
-    {
-        this._backGround.DOFade(0f, 1.5f).SetDelay(0.5f).OnComplete(()=> SceneManager.LoadScene(name));
-    }
-    void CheckInstance()
+    void CheckInstance() //同じオブジェクトがあったら破棄（nullチェック
     {
         if(_instance == null)
         {
@@ -96,8 +93,8 @@ public class GameManager : MonoBehaviour
             Destroy(this.gameObject);
         }
     }
-    public void Music(int num)
+    public void Music(int num)　//音を鳴らす
     {
-        _audio.PlayOneShot(_audioClip[num]);
+        _audio.PlayOneShot(_audioClip[num],10f);
     }
 }

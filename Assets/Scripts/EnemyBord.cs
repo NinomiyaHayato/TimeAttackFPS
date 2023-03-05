@@ -35,7 +35,7 @@ public class EnemyBord : MonoBehaviour
             _bordTrigger = true;
         }
     }
-    void BordMove()
+    void BordMove()Å@//ìÆÇ≠è∞ÇÃîªíË
     {
         Ray _ray = new Ray(this.gameObject.transform.position + _plusVector, _vecF);
         Debug.DrawRay(this.gameObject.transform.position + _plusVector, _vecF, Color.red);
