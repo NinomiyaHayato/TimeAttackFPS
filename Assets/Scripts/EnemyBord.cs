@@ -12,7 +12,6 @@ public class EnemyBord : MonoBehaviour
     [SerializeField] Vector3 _vecB = Vector3.back;　//床の進む方向
     [SerializeField] bool _turn = true;　//床の判定
     public static bool _bordTrigger = false;　//床の起動
-    AnimationGizmo _bordSpeedChange; //仮の変数
     // Start is called before the first frame update
     void Start()
     {
